@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { increment, decrement, incrementByAmount, selectCount, incrementAsync } from './CounterSlice';
+import { increment, decrement, incrementByAmount, selectCount, incrementAsync, selectFetchStatus } from './CounterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 export function Counter() {
     const count = useSelector(selectCount);
+    const fetchStatus = useSelector(selectFetchStatus);
+
     const dispatch = useDispatch();
     const [incrementBy, setIncrementBy] = useState('2');
     const incrementByValue = Number(incrementBy) || 0;
@@ -14,7 +16,7 @@ export function Counter() {
             >
                 +
             </button>
-            <div style={{ display: 'inline-block', padding: '10px' }}>{count}</div>
+            <div style={{ display: 'inline-block', padding: '10px' }}>{fetchStatus === 'idle' ? count : fetchStatus}</div>
             <button
                 onClick={() => { dispatch(decrement()) }}
             >
